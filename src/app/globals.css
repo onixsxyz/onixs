@@ -1,0 +1,229 @@
+@import "tailwindcss";
+
+/*
+ * ONIXS: midnight ink, a banded onyx stripe (rose, amber, jade) and one amber call to action.
+ * Display type is Archivo at its widest; text is Instrument Sans with tabular figures.
+ */
+@theme {
+  --color-night: #0b0e2b;
+  --color-night-2: #080a22;
+  --color-slab: #12163b;
+  --color-slab-2: #181d48;
+  --color-slab-3: #212759;
+  --color-line: rgba(146, 156, 255, 0.14);
+  --color-line-2: rgba(146, 156, 255, 0.26);
+  --color-ink: #eef0ff;
+  --color-ink-2: #b4b8de;
+  --color-ink-3: #878dba;
+  --color-amber: #ffd83a;
+  --color-rose: #ff4f9a;
+  --color-jade: #3fe0b5;
+  --color-fall: #ff78ae;
+  --color-cream: #fbf8ef;
+  --font-sans: var(--font-text), "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-wide), "Helvetica Neue", Arial, sans-serif;
+  --radius-card: 14px;
+}
+
+@layer base {
+  html {
+    background: var(--color-night);
+    color-scheme: dark;
+  }
+  body {
+    background: var(--color-night);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "tnum" 1;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-amber);
+    color: var(--color-night);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-amber);
+    outline-offset: 2px;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+  @media (min-width: 768px) {
+    .wrap {
+      padding-inline: 32px;
+    }
+  }
+  /* The onyx band: three stripes above a heading. */
+  .band {
+    display: block;
+    width: 44px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--color-rose) 0 33.4%, var(--color-amber) 33.4% 66.7%, var(--color-jade) 66.7%);
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 44px;
+    padding-inline: 18px;
+    border-radius: 10px;
+    background: var(--color-amber);
+    color: var(--color-night);
+    font-weight: 600;
+    font-size: 15px;
+    white-space: nowrap;
+    transition: filter 0.15s, transform 0.15s;
+  }
+  .btn:hover:not(:disabled) {
+    filter: brightness(1.06);
+  }
+  .btn:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+  .btn:disabled {
+    background: var(--color-slab-3);
+    color: var(--color-ink-3);
+    cursor: not-allowed;
+  }
+  .btn-sm {
+    height: 34px;
+    padding-inline: 12px;
+    font-size: 13.5px;
+    border-radius: 8px;
+  }
+  .btn-line {
+    background: transparent;
+    color: var(--color-ink);
+    border: 1px solid var(--color-line-2);
+  }
+  .btn-line:hover:not(:disabled) {
+    background: var(--color-slab-2);
+    filter: none;
+  }
+  .btn-line:disabled {
+    background: transparent;
+  }
+  .slab {
+    background: var(--color-slab);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+  }
+  .tag {
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-ink-3);
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 24px;
+    padding-inline: 9px;
+    border-radius: 999px;
+    border: 1px solid var(--color-line-2);
+    font-size: 12px;
+    color: var(--color-ink-2);
+    white-space: nowrap;
+  }
+  .ticker {
+    display: inline-flex;
+    align-items: center;
+    height: 22px;
+    padding-inline: 7px;
+    border-radius: 6px;
+    background: var(--color-cream);
+    color: var(--color-night);
+    font-weight: 700;
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+    box-shadow: inset 3px 0 0 var(--color-rose);
+  }
+  .ticker[data-tone="jade"] {
+    box-shadow: inset 3px 0 0 var(--color-jade);
+  }
+  .ticker[data-tone="amber"] {
+    box-shadow: inset 3px 0 0 var(--color-amber);
+  }
+  .field {
+    width: 100%;
+    height: 52px;
+    padding-inline: 14px;
+    border-radius: 10px;
+    background: var(--color-night-2);
+    border: 1px solid var(--color-line-2);
+    color: var(--color-ink);
+    font-size: 19px;
+    font-variant-numeric: tabular-nums;
+  }
+  .field::placeholder {
+    color: var(--color-ink-3);
+  }
+  .field:focus {
+    outline: none;
+    border-color: var(--color-amber);
+  }
+  /* Label-value rows with a hairline between them. */
+  .kv {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding-block: 11px;
+    border-bottom: 1px solid var(--color-line);
+    font-size: 14.5px;
+  }
+  .kv > :first-child {
+    color: var(--color-ink-2);
+    min-width: 0;
+  }
+  .kv > :last-child {
+    font-weight: 600;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .link {
+    color: var(--color-amber);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  .prose-onixs p {
+    color: var(--color-ink-2);
+    line-height: 1.7;
+    margin-top: 12px;
+  }
+  .prose-onixs h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 36px;
+  }
+  .prose-onixs ul {
+    margin-top: 12px;
+    padding-left: 20px;
+    list-style: disc;
+    color: var(--color-ink-2);
+    line-height: 1.7;
+  }
+  /* relative: an absolutely placed child (sr-only labels) must stay inside the scroller, not widen the page. */
+  .scroll-x {
+    position: relative;
+    min-width: 0;
+    overflow-x: auto;
+  }
+  .prose-onixs code {
+    overflow-wrap: anywhere;
+  }
+}

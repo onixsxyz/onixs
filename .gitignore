@@ -1,0 +1,26 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/.next-local/
+/out/
+/build
+
+# env files (never committed)
+.env*
+!.env.example
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*
+.vercel
+*.tsbuildinfo
+next-env.d.ts
+
+# foundry build output and vendored libraries (contracts/setup.sh fetches them)
+/contracts/out/
+/contracts/cache/
+/contracts/broadcast/
+/contracts/lib/
