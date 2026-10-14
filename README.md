@@ -41,9 +41,10 @@ leasehold shares), both on Morpho Blue with the adaptive rate model. New positio
 Live now (read from the chain): stock token prices with feed age, pool depth and pool-vs-feed gap, Morpho data, the
 Verify tab (token identity by Robinhood's beacon, feeds, pools, Morpho settings), wallet connection on Robinhood Chain.
 
-Coming later: every lending, borrowing, shorting, leverage and pair action is wired in the app and switches on as soon
-as the contract addresses are filled in `src/config/contracts.ts`. $ONIXS rewards need a rewards contract that does
-not exist yet.
+Also live (contracts on Robinhood Chain since 14 Oct 2026): lend SPY, QQQ or NVDA stock tokens, lend USDG, borrow USDG
+against lent stock, open and close shorts, leveraged longs up to 1.8x, and pair trades.
+
+Coming later: $ONIXS rewards need a rewards contract that does not exist yet.
 
 ## Run it locally
 
@@ -95,7 +96,18 @@ scripts            artifacts export and verify-deployment
 ## Contracts and token
 
 - $ONIXS contract address: published at launch on this README, the website and X.
-- ONIXS contracts: not deployed yet. Addresses will be listed here and verified on Blockscout.
+- ONIXS contracts (Robinhood Chain, chain id 4663), all verified on Blockscout; `npm run verify-deployment` checks them
+  against this source:
+
+  | Contract | Address |
+  |---|---|
+  | OnixsCharter | `0x867682fdf35198cd458e68ed09bad44ce9dd613f` |
+  | OnixsBerth (implementation) | `0x3af8badbb8b3972c1608e760b2d4687892d9f928` |
+  | SPY short mark / leasehold / credit mark | `0x08224ed19045546f418436f30533d430895e25d1` / `0xcf87d58b258ae3a1275a626e58d841b3481b7505` / `0x1097439a6312a82cf44e6233a5e295a50ebcc261` |
+  | QQQ short mark / leasehold / credit mark | `0x18760ff2638c0de700bf1cc774c3dbd165935d77` / `0x11f4f8d99e344dde138e2e43953a1df65bed2902` / `0x4469418147d8df879012280f6fc3c2eb12faa0db` |
+  | NVDA short mark / leasehold / credit mark | `0x0e4b7066f2af62f29f12ece615d3cdae3576a91c` / `0xb1e8b266b3e120b99b355d6204d216cfd68d2d8a` / `0xef114bf990b344aca025676efb0b97d5f1b0a193` |
+
+  The charter owner is fixed forever at deployment: there is no transfer, renounce or replace path.
 - External: Morpho Blue `0x9D53d5E3bd5E8d4Cbfa6DB1ca238AEA02E651010`, adaptive IRM `0x2BD3d5965B26B51814AC95127B2b80dD6CcC0fa1`,
   USDG `0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168`, Uniswap v3 factory `0x1f7d7550b1b028f7571e69a784071f0205fd2efa`.
 

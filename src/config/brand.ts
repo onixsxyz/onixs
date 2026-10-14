@@ -31,7 +31,7 @@ export const BRAND = {
   x: `https://x.com/${X_HANDLE}`,
   xHandle: `@${X_HANDLE}`,
   // Public source repository. Bare host = not published yet, so it stays off the site.
-  github: "https://github.com/",
+  github: "https://github.com/onixsxyz/onixs",
   ca: CA,
 } as const;
 
