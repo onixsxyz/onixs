@@ -27,7 +27,7 @@ function chain(tamper = {}) {
     stockFeedScale: word(10n ** 10n), usdgFeedScale: word(10n ** 10n), shareUnit: word(lh === ZERO ? 0n : 10n ** 24n), scale: word(lh === ZERO ? 10n ** 48n : 1n),
   });
   const code = {
-    [CHARTER]: runtime("OnixsCharter", { morpho: addrWord(MORPHO), usdg: addrWord(USDG), swapFactory: addrWord(SWAP_FACTORY), berthImplementation: addrWord(IMPL) }),
+    [CHARTER]: runtime("OnixsCharter", { owner: addrWord(OWNER), morpho: addrWord(MORPHO), usdg: addrWord(USDG), swapFactory: addrWord(SWAP_FACTORY), berthImplementation: addrWord(IMPL) }),
     [IMPL]: runtime("OnixsBerth", { morpho: addrWord(MORPHO), usdg: addrWord(USDG), charter: addrWord(CHARTER), usdgTo18: word(10n ** 12n) }),
     [SHORT]: runtime("OnixsMark", markImm(ZERO)),
     [CREDIT]: runtime("OnixsMark", markImm(LEASE)),
@@ -64,7 +64,6 @@ function chain(tamper = {}) {
       case "eth_call": {
         const { to, data } = params[0];
         if (to === CHARTER && data === sel("owner()")) return "0x" + addrWord(OWNER);
-        if (to === CHARTER && data === sel("pendingOwner()")) return "0x" + word(0);
         if (to === CHARTER && data === sel("listingCount()")) return "0x" + word(1);
         if (to === CHARTER && data.startsWith(sel("getListing(uint256)"))) return listing;
         if (to === MORPHO && data.startsWith(sel("market(bytes32)"))) return "0x" + word(1) + word(1) + word(0) + word(0) + word(tamper.noMarket ? 0 : 1700000000) + word(0);

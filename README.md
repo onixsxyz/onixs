@@ -29,7 +29,7 @@ ONIXS lists each stock with two Morpho markets and a set of small contracts that
 | --- | --- |
 | `OnixsLeasehold` | One per stock. ERC-4626, no owner, no fee. Supplies all deposits to the stock's short market on Morpho. |
 | `OnixsMark` | Morpho oracle. Chainlink stock price × the token's dividend multiplier; USDG at its own feed, never above $1. Two per stock (short mode, credit mode). Never reverts on a stale price, so repay and liquidation always work. |
-| `OnixsCharter` | Registry of listings (fixed once listed; the owner can only pause new positions) and factory of berths. Every berth reports its activity here. |
+| `OnixsCharter` | Registry of listings (fixed once listed; the owner can only list a stock or pause new positions) and factory of berths. Its owner is an immutable set at deployment: it can never be transferred or replaced. Every berth reports its activity here. |
 | `OnixsBerth` | A minimal proxy per wallet, owned by that wallet only. Holds its shorts and leveraged longs on Morpho, swaps on the listing's Uniswap v3 pool, and has an owner-only escape hatch. |
 
 Per stock: a **short market** (loan: the stock, collateral: USDG) and a **credit market** (loan: USDG, collateral:
@@ -102,7 +102,7 @@ scripts            artifacts export and verify-deployment
 ## Security and status
 
 Lenders can lose stock if a short becomes bad debt; shorts can lose their whole margin; Robinhood can pause, block or
-burn stock tokens. The owner of `OnixsCharter` can list stocks and pause new positions, nothing else. The full list is
+burn stock tokens. The owner of `OnixsCharter` is fixed forever at deployment (there is no transfer function) and can list stocks and pause new positions, nothing else. The full list is
 on the site's Rules page. Please report a vulnerability privately (a direct message to @onixs on X) before disclosing it.
 
 ## Contributing

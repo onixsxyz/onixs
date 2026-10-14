@@ -26,7 +26,7 @@ export const FAQ = [
   },
   {
     q: "Can ONIXS take my tokens?",
-    a: "Lent stock sits in Morpho in the leasehold's name and leaseholds have no owner. Positions sit in your berth, which only your wallet can operate. The ONIXS owner can list stocks and pause new positions; it cannot move, close or freeze anyone's funds. The stock token's issuer can, which is a risk ONIXS cannot remove.",
+    a: "Lent stock sits in Morpho in the leasehold's name and leaseholds have no owner. Positions sit in your berth, which only your wallet can operate. The ONIXS owner, fixed forever when the Charter was deployed, can list stocks and pause new positions; it cannot move, close or freeze anyone's funds. The stock token's issuer can, which is a risk ONIXS cannot remove.",
   },
   {
     q: "What does it cost?",

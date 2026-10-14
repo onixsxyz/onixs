@@ -16,8 +16,8 @@ export default async function DeployPage() {
       <span className="band" />
       <h1 className="mt-4 text-[34px] font-bold">Deploy ONIXS</h1>
       <p className="mt-3 max-w-3xl text-[15.5px] leading-relaxed text-ink-2">
-        Owner tool on this machine only. The connected wallet deploys every contract and becomes the Charter owner, so it can list the
-        three stocks. Sixteen transactions, about 15.8M gas; keep around 0.005 ETH in the wallet. Progress is saved in this browser, so a
+        Owner tool on this machine only. The connected wallet deploys every contract and becomes the Charter owner for good: the owner is
+        immutable and can never be transferred, so connect the wallet that should list and pause from now on. Sixteen transactions, about 15.8M gas; keep around 0.005 ETH in the wallet. Progress is saved in this browser, so a
         closed tab resumes where it stopped. Nothing here is linked from the site.
       </p>
       <DeployDesk />

@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.28;
 
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 import {IERC4626} from "@openzeppelin/contracts/interfaces/IERC4626.sol";
 import {IOnixsMorpho, OnixsMarketParams} from "./interfaces/IOnixsMorpho.sol";
 import {IOnixsSwapPool, IOnixsSwapFactory} from "./interfaces/IOnixsExternal.sol";
@@ -22,7 +20,10 @@ interface IOnixsMarkView {
 /// @notice The list of stocks ONIXS trades, and the place every wallet's berth is created. A listing is checked
 ///         on chain when it is added and can never be edited afterwards; the owner can only pause a listing,
 ///         which stops new opens while closes keep working. The charter never holds user funds.
-contract OnixsCharter is Ownable2Step {
+///         The owner is fixed forever at deployment: there is no way to transfer, renounce or replace it.
+contract OnixsCharter {
+    error OnixsCharterNotOwner();
+    error OnixsCharterZeroOwner();
     error OnixsCharterInvalid(string what);
     error OnixsCharterUnknownListing();
     error OnixsCharterBerthExists();
@@ -42,6 +43,8 @@ contract OnixsCharter is Ownable2Step {
     uint8 internal constant KIND_LONG_OPENED = 3;
     uint8 internal constant KIND_LONG_CLOSED = 4;
 
+    /// @notice The only address that can list a stock or pause a listing. Immutable: it can never change.
+    address public immutable owner;
     address public immutable morpho;
     address public immutable usdg;
     address public immutable swapFactory;
@@ -51,7 +54,14 @@ contract OnixsCharter is Ownable2Step {
     mapping(address => address) public berthOf;
     mapping(address => bool) public isBerth;
 
-    constructor(address owner_, address morpho_, address usdg_, address swapFactory_) Ownable(owner_) {
+    modifier onlyOwner() {
+        if (msg.sender != owner) revert OnixsCharterNotOwner();
+        _;
+    }
+
+    constructor(address owner_, address morpho_, address usdg_, address swapFactory_) {
+        if (owner_ == address(0)) revert OnixsCharterZeroOwner();
+        owner = owner_;
         morpho = morpho_;
         usdg = usdg_;
         swapFactory = swapFactory_;

@@ -51,7 +51,7 @@ export default function DocsPage() {
           <li><b>Short market</b>: a Morpho market where the stock is lent and USDG is the collateral. Shorts borrow here; leaseholds supply here.</li>
           <li><b>Credit market</b>: a Morpho market where USDG is lent and leasehold shares are the collateral. Stock lenders borrow dollars here without selling; USDG lenders supply here.</li>
           <li><b>Price marks</b>: two small oracles per stock, one per market, that read the stock&apos;s Chainlink feed, apply the token&apos;s dividend multiplier and price USDG at its own feed, never above one dollar.</li>
-          <li><b>Charter</b>: the registry. It holds each listing (stock, feed, pool, leasehold, both markets and their limits), opens berths, and is the single address every berth reports activity to.</li>
+          <li><b>Charter</b>: the registry. It holds each listing (stock, feed, pool, leasehold, both markets and their limits), opens berths, and is the single address every berth reports activity to. Its owner is set once at deployment and can never be transferred or replaced; that owner can only list a stock or pause new positions on a listing.</li>
           <li><b>Berth</b>: your own account contract, created on your first trade. Only your wallet can operate it. It holds your shorts and leveraged longs on Morpho in its own name, so you never give a shared contract power over your other Morpho positions.</li>
         </ul>
 

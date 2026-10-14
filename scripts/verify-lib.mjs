@@ -199,15 +199,18 @@ export async function verifyDeployment({ config, rpc, expect = {}, ART, scanBloc
           if (w(1) === cm.immutables.morpho && w(2) === cm.immutables.usdg && w(3) === cm.immutables.swapFactory) ok("OnixsCharter constructor morpho/usdg/swapFactory = deployed values");
           else fail("OnixsCharter constructor arguments differ from the deployed immutables");
           const owner0 = asAddr(w(0));
-          if (expect.owner && !same(owner0, expect.owner)) fail(`OnixsCharter constructor owner ${owner0}, expected ${expect.owner}`);
-          else info(`OnixsCharter constructor owner = ${owner0}`);
+          if (w(0) !== cm.immutables.owner) fail(`OnixsCharter constructor owner ${owner0} differs from the deployed immutable`);
+          else if (expect.owner && !same(owner0, expect.owner)) fail(`OnixsCharter constructor owner ${owner0}, expected ${expect.owner}`);
+          else ok(`OnixsCharter constructor owner = ${owner0} = deployed immutable`);
         }
       }
+      // The owner is an immutable of this build (no transfer, accept or renounce exists), so it is fixed forever:
+      // the deployed immutable, the owner() view and --owner must all name the same address.
+      const immOwner = asAddr(cm.immutables.owner);
       const owner = asAddr((await call(charter, sel("owner()"))).slice(2));
-      if (expect.owner && !same(owner, expect.owner)) fail(`OnixsCharter.owner() = ${owner}, expected ${expect.owner}`);
-      else info(`OnixsCharter.owner() = ${owner}`);
-      const pending = asAddr((await call(charter, sel("pendingOwner()"))).slice(2));
-      if (!same(pending, ZERO)) info(`OnixsCharter.pendingOwner() = ${pending} (ownership transfer not accepted yet)`);
+      if (!same(owner, immOwner)) fail(`OnixsCharter.owner() = ${owner} but the immutable is ${immOwner}`);
+      else if (expect.owner && !same(owner, expect.owner)) fail(`OnixsCharter owner (immutable) = ${owner}, expected ${expect.owner}`);
+      else ok(`OnixsCharter owner = ${owner}, immutable: it can never change`);
       const count = Number(BigInt(await call(charter, sel("listingCount()"))));
       const n = (config.LISTINGS || []).length;
       if (count === n) ok(`OnixsCharter.listingCount() = ${count}, the config lists ${n}`);

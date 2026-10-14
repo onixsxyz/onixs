@@ -316,7 +316,10 @@ contract OnixsForkTest is Test {
         _lend(SPY_ID, 5e18);
         OnixsBerth b = _berth(trader);
         _openShort(b, SPY_ID, 1000e6, 1500e6);
-        _movePool(SPY_ID, true, 40_000e6);
+        // Buy far more than the pool's whole stock side (sized from its live balance, which changes day to day),
+        // so the pool is drained and an exact-output buy-back of the debt cannot fill.
+        uint256 poolStockUsd = IERC20(L[SPY_ID].stock).balanceOf(L[SPY_ID].pool) * _stockUsd(SPY_ID) / 1e30;
+        _movePool(SPY_ID, true, poolStockUsd * 3);
         _fund(USDG, trader, 50_000e6);
         vm.startPrank(trader);
         IERC20(USDG).approve(address(b), type(uint256).max);
@@ -470,8 +473,9 @@ contract OnixsForkTest is Test {
         b.closeShort(QQQ_ID, type(uint256).max);
         vm.stopPrank();
         vm.prank(stranger);
-        vm.expectRevert();
+        vm.expectRevert(OnixsCharter.OnixsCharterNotOwner.selector);
         charter.setPaused(QQQ_ID, false);
+        assertEq(charter.owner(), owner);
     }
 
     function test_staleFeedRefusesOpensButClosesWork() public {

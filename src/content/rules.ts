@@ -44,7 +44,7 @@ export const RULES: Rule[] = [
   {
     icon: "owner",
     title: "The owner lists and pauses, nothing more",
-    body: "The ONIXS owner can add a stock with fixed settings and can stop new positions on a listing. It cannot change a listing's markets, pool or limits after the fact, cannot close or move anyone's position, and cannot block a close. Lending and withdrawing happen on contracts that have no owner at all.",
+    body: "The ONIXS owner is one address written into the Charter when it was deployed, and it can never be changed or handed over. It can add a stock with fixed settings and can stop new positions on a listing. It cannot change a listing's markets, pool or limits after the fact, cannot close or move anyone's position, and cannot block a close. Lending and withdrawing happen on contracts that have no owner at all.",
   },
   {
     icon: "issuer",
