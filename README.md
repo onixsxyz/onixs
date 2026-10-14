@@ -2,7 +2,7 @@
 
 **Lend Stocks. Earn Rent. Short at Your Own Risk.** ONIXS is a stock token lending protocol on Robinhood Chain:
 lend SPY, QQQ or NVDA stock tokens for rent paid by shorts, borrow USDG against them, short in one transaction,
-lever a long up to 1.8x, or trade one stock against another. Website: https://onixs.app · X: https://x.com/onixs
+lever a long up to 1.8x, or trade one stock against another. Website: https://onixs.app · X: https://x.com/onixsxyz
 
 ## The problem
 
@@ -103,7 +103,7 @@ scripts            artifacts export and verify-deployment
 
 Lenders can lose stock if a short becomes bad debt; shorts can lose their whole margin; Robinhood can pause, block or
 burn stock tokens. The owner of `OnixsCharter` is fixed forever at deployment (there is no transfer function) and can list stocks and pause new positions, nothing else. The full list is
-on the site's Rules page. Please report a vulnerability privately (a direct message to @onixs on X) before disclosing it.
+on the site's Rules page. Please report a vulnerability privately (a direct message to @onixsxyz on X) before disclosing it.
 
 ## Contributing
 

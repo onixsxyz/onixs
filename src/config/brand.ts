@@ -15,7 +15,7 @@ export const isAddress = (v: string): v is `0x${string}` => /^0x[0-9a-fA-F]{40}$
 const NAME = "ONIXS";
 const TICKER = "ONIXS";
 const DOMAIN = "onixs.app";
-const X_HANDLE = "onixs";
+const X_HANDLE = "onixsxyz";
 
 export const BRAND = {
   name: NAME,
