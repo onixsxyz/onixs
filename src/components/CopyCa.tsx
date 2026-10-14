@@ -37,7 +37,7 @@ export function CaTicket() {
       className="group inline-flex h-[34px] items-center overflow-hidden rounded-lg border border-line-2 text-[12.5px] enabled:hover:border-amber/60 disabled:cursor-not-allowed"
       data-testid="ca-ticket"
     >
-      <span className="flex h-full items-center bg-cream px-2 font-bold text-night">CA</span>
+      <span className="flex h-full items-center bg-lilac px-2 font-bold text-night">CA</span>
       <span className="hidden h-full items-center gap-1.5 px-2.5 sm:flex">
         <span className="font-semibold text-ink">{BRAND.symbol}</span>
         <span className="text-ink-3">{live ? shortAddress(BRAND.ca, 5, 4) : "At launch"}</span>

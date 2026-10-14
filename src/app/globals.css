@@ -20,6 +20,8 @@
   --color-jade: #3fe0b5;
   --color-fall: #ff78ae;
   --color-cream: #fbf8ef;
+  /* The owner's logo tile colour; used sparingly next to the mark (CA stub). */
+  --color-lilac: #e5e3f8;
   --font-sans: var(--font-text), "Helvetica Neue", Arial, sans-serif;
   --font-display: var(--font-wide), "Helvetica Neue", Arial, sans-serif;
   --radius-card: 14px;
