@@ -124,6 +124,8 @@ export function checkBatch(calls: Call[], targets = readTargets()): { units: num
       if (params.length > 2) return { error: "State overrides are not relayed." };
       const tx = params[0] as { to?: unknown; gas?: unknown; data?: unknown } | undefined;
       if (!tx || typeof tx !== "object") return { error: "eth_estimateGas needs a transaction." };
+      // Same target allowlist as eth_call: otherwise the relay simulates 5M-gas calls against any contract.
+      if (typeof tx.to !== "string" || !targets.has(tx.to.toLowerCase())) return { error: "eth_estimateGas target not served by this relay." };
       const shaped = shapeTx(tx as Record<string, unknown>);
       if (shaped) return { error: shaped };
       if (params[1] !== undefined && !(typeof params[1] === "string" && BLOCK_TAG.test(params[1]))) return { error: "Unsupported block tag." };

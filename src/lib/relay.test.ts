@@ -17,6 +17,13 @@ test("unknown targets, signed transactions and wide log scans are refused", () =
   assert.ok("error" in checkBatch([{ method: "eth_getLogs", params: [{ address: USDG.address, fromBlock: "0x1", toBlock: "0x100000" }] }]));
 });
 
+test("gas estimates are held to the same target allowlist as calls", () => {
+  const est = (tx: Record<string, unknown>) => ({ method: "eth_estimateGas", params: [tx] });
+  assert.ok("units" in checkBatch([est({ to: USDG.address, data: "0x18160ddd" })]));
+  assert.ok("error" in checkBatch([est({ to: "0x000000000000000000000000000000000000dead", data: "0x" })]));
+  assert.ok("error" in checkBatch([est({ data: "0x" })]));
+});
+
 test("a refused budget never reaches the RPC", async () => {
   let reached = false;
   const out = await runRelay(call(USDG.address, "0x18160ddd"), {
