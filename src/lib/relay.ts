@@ -79,7 +79,7 @@ export function checkBatch(calls: Call[], targets = readTargets()): { units: num
   let span = 0;
   for (let i = 0; i < calls.length; i++) {
     const c = calls[i];
-    if (!c || typeof c.method !== "string" || !(c.method in COST)) return { error: `Method not allowed: ${String(c?.method)}` };
+    if (!c || typeof c.method !== "string" || !Object.hasOwn(COST, c.method)) return { error: `Method not allowed: ${String(c?.method)}` };
     if (c.params !== undefined && !Array.isArray(c.params)) return { error: "params must be an array." };
     const params = c.params ?? [];
     units += COST[c.method];

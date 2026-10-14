@@ -37,3 +37,9 @@ test("a refused budget never reaches the RPC", async () => {
   assert.equal(out.status, 429);
   assert.equal(reached, false);
 });
+
+test("inherited object names are not methods", () => {
+  for (const method of ["toString", "constructor", "__proto__", "hasOwnProperty", "valueOf"]) {
+    assert.ok("error" in checkBatch([{ method, params: [] }]), method);
+  }
+});
